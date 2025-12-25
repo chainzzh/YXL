@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-tap-highlight-color: transparent; }
         
         body {
-            /* 经典渐变背景 */
+            /* 经典红蓝黄渐变背景 */
             background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
             background-size: 400% 400%;
             animation: bgGradient 15s ease infinite;
@@ -81,16 +81,16 @@
             animation: twinkle 1.5s infinite alternate;
         }
 
-        /* 平安果 (余/馨/兰) */
+        /* 平安果 (余/馨/兰) - 大尺寸 */
         .apple {
-            position: absolute; width: 26px; height: 26px;
+            position: absolute; width: 28px; height: 28px;
             background: radial-gradient(circle at 30% 30%, #ff5252, #b71c1c);
-            border-radius: 50%; color: #fff; font-size: 12px;
+            border-radius: 50%; color: #fff; font-size: 13px;
             display: flex; justify-content: center; align-items: center; font-weight: bold;
             z-index: 6; border: 0.5px solid rgba(0,0,0,0.1);
             animation: swing 3s ease-in-out infinite alternate;
         }
-        .apple::after { content: ''; position: absolute; top: -3px; left: 50%; width: 4px; height: 3px; background: #4caf50; border-radius: 50%; transform: translateX(-50%);}
+        .apple::after { content: ''; position: absolute; top: -3px; left: 50%; width: 4px; height: 4px; background: #4caf50; border-radius: 50%; transform: translateX(-50%);}
         @keyframes swing { 0%{transform:rotate(8deg)} 100%{transform:rotate(-8deg)} }
 
         /* ====== 圣诞老人 (Right) ====== */
@@ -169,10 +169,11 @@
             justify-content: center;
             animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             margin-bottom: 25px;
-            padding: 10px;
+            padding: 15px;
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #ecf0f1;
         }
         @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
@@ -197,44 +198,60 @@
         
         /* 礼物2：羽毛球拍 CSS Art */
         .racket-wrapper {
-            position: relative; width: 100px; height: 130px; margin: 5px auto;
+            position: relative; width: 90px; height: 120px; margin: 5px auto;
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
             transform: rotate(-10deg);
         }
-        /* 拍头 */
         .racket-head {
-            width: 80px; height: 95px;
-            border: 4px solid #34495e;
-            border-radius: 50%;
+            width: 70px; height: 85px; border: 4px solid #34495e; border-radius: 50%;
             position: absolute; left: 10px; top: 0;
-            background-image: 
-                linear-gradient(#ccc 1px, transparent 1px),
-                linear-gradient(90deg, #ccc 1px, transparent 1px);
-            background-size: 8px 8px; /* 网线 */
-            background-position: center;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            background-image: linear-gradient(#ccc 1px, transparent 1px), linear-gradient(90deg, #ccc 1px, transparent 1px);
+            background-size: 8px 8px; box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
         }
-        /* 拍杆 */
-        .racket-shaft {
-            width: 6px; height: 40px;
-            background: #95a5a6;
-            position: absolute; bottom: 0; left: 47px;
-        }
-        /* 三角区 */
+        .racket-shaft { width: 6px; height: 35px; background: #95a5a6; position: absolute; bottom: 0; left: 42px; }
         .racket-throat {
-            width: 0; height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 10px solid #34495e;
-            position: absolute; top: 92px; left: 45px;
+            width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
+            border-top: 10px solid #34495e; position: absolute; top: 82px; left: 40px;
         }
-        /* 手柄 */
         .racket-handle {
-            width: 12px; height: 35px;
-            background: #2c3e50;
-            position: absolute; bottom: -20px; left: 44px;
-            border-radius: 2px;
+            width: 12px; height: 30px; background: #2c3e50;
+            position: absolute; bottom: -20px; left: 39px; border-radius: 2px;
             background-image: repeating-linear-gradient(45deg, #2c3e50, #2c3e50 5px, #34495e 5px, #34495e 7px);
+        }
+
+        /* 礼物3：电饭锅+锅铲 CSS Art */
+        .cooking-wrapper {
+            position: relative; width: 120px; height: 90px; margin: 10px auto;
+        }
+        .rice-cooker {
+            position: absolute; bottom: 0; left: 10px;
+            width: 70px; height: 55px;
+            background: #ecf0f1; border: 2px solid #bdc3c7;
+            border-radius: 10px 10px 15px 15px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .rice-cooker::before {
+            content: ''; position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #bdc3c7;
+        }
+        .cooker-btn {
+            position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 10px; height: 10px; background: #fff; border: 2px solid #95a5a6; border-radius: 50%;
+        }
+        .cooker-light {
+            position: absolute; top: 28px; left: 15px;
+            width: 4px; height: 4px; background: #e74c3c; border-radius: 50%; box-shadow: 0 0 2px red;
+        }
+        .spatula {
+            position: absolute; bottom: 5px; right: 25px;
+            width: 8px; height: 60px; background: #8d6e63;
+            border-radius: 2px; transform: rotate(25deg);
+            z-index: 1;
+        }
+        .spatula::after {
+            content: ''; position: absolute; top: -12px; left: -8px;
+            width: 24px; height: 25px; background: #7f8c8d;
+            border-radius: 4px 4px 2px 2px;
         }
 
         .surprise-text {
@@ -256,10 +273,9 @@
 </head>
 <body>
 
-    <!-- 音乐 -->
+    <!-- 音乐：使用极度稳定的 MP3 外链 (Kevin MacLeod - Jingle Bells 欢快版) -->
     <audio id="bgm" loop preload="auto">
-        <source src="https://music.163.com/song/media/outer/url?id=186037.mp3" type="audio/mpeg">
-        <source src="https://upload.wikimedia.org/wikipedia/commons/e/e6/We_Wish_You_a_Merry_Christmas.ogg" type="audio/ogg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kevin_MacLeod/Jingle_Bells/Kevin_MacLeod_-_Jingle_Bells.mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
@@ -319,7 +335,7 @@
 
         <p class="card-message">
             To: <span class="highlight-name">小余同学</span><br>
-            这首 We Wish You a Merry Christmas<br>
+            这首欢快的节日音乐<br>
             是专门为你点播的 🎵<br>
             希望这些平安果能够保佑你以后平平安安，<br>
             上下学骑车都安安全全的，<br>
@@ -360,9 +376,26 @@
                     增加强大的实力！💪
                 </div>
             </div>
+
+            <!-- 礼物 3：电饭锅+锅铲 -->
+            <div class="revealed-gift" id="gift3">
+                <div class="cooking-wrapper">
+                    <div class="rice-cooker">
+                        <div class="cooker-btn"></div>
+                        <div class="cooker-light"></div>
+                    </div>
+                    <div class="spatula"></div>
+                </div>
+                <div class="surprise-text">
+                    天呐！是<br>
+                    <span class="highlight-gift">大锅铲 + 电饭锅 🍳</span>
+                    期待以后你的厨艺<br>
+                    会更上一层楼哦！👩‍🍳
+                </div>
+            </div>
         </div>
 
-        <button class="btn-music" id="musicBtn">🎵 点击播放：We Wish You a Merry Christmas</button>
+        <button class="btn-music" id="musicBtn">🎵 点击开启圣诞喜庆 BGM</button>
         <p class="signature">—— 小张同学</p>
     </div>
 
@@ -385,7 +418,7 @@
             }
             createSnow();
 
-            /* 2. 音乐 */
+            /* 2. 音乐 (核心：使用稳定外链) */
             const musicBtn = document.getElementById('musicBtn');
             const bgm = document.getElementById('bgm');
             let isPlaying = false;
@@ -393,32 +426,42 @@
             musicBtn.addEventListener('click', function() {
                 if (isPlaying) {
                     bgm.pause();
-                    musicBtn.textContent = '🎵 点击播放：We Wish You a Merry Christmas';
+                    musicBtn.textContent = '🎵 点击开启圣诞喜庆 BGM';
                     musicBtn.style.background = 'linear-gradient(90deg, #16a085, #2ecc71)';
                     isPlaying = false;
                 } else {
-                    bgm.play().then(() => {
-                        musicBtn.textContent = '⏸ 正在播放圣诞颂歌...';
-                        musicBtn.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
-                        isPlaying = true;
-                    }).catch(err => { alert("请检查手机静音或再次点击~"); });
+                    const playPromise = bgm.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            musicBtn.textContent = '⏸ 正在播放喜庆 BGM...';
+                            musicBtn.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
+                            isPlaying = true;
+                        })
+                        .catch(error => {
+                            console.error("Play error:", error);
+                            alert("为了听到音乐，请检查手机是否开启了静音模式，并再次点击按钮~");
+                        });
+                    }
                 }
             });
 
+            // 触摸页面预加载音频
             document.body.addEventListener('touchstart', function() {
                 if(!isPlaying) bgm.load();
             }, {once:true});
 
-            /* 3. 抽奖逻辑 (双重神秘) */
+            /* 3. 抽奖逻辑 (三连抽) */
             const box = document.getElementById('giftBox');
             const tip = document.getElementById('giftTip');
             const gift1 = document.getElementById('gift1');
             const gift2 = document.getElementById('gift2');
+            const gift3 = document.getElementById('gift3');
             
-            let step = 0; // 0:未开始, 1:开了第一个, 2:开了第二个
+            let step = 0; 
 
             box.addEventListener('click', function() {
-                if(step >= 2) return;
+                if(step >= 3) return;
 
                 // 摇晃盒子动画
                 box.classList.remove('shake');
@@ -430,19 +473,29 @@
                     step++;
 
                     if (step === 1) {
-                        // 展示第一个礼物
+                        // 展示礼物1
                         gift1.style.display = 'flex';
-                        tip.innerHTML = "🎁 <b>盒子还在动！</b> 点击抽取第二个神秘大礼";
+                        tip.innerHTML = "🎁 <b>盒子还在动！</b> 再点一下，还有礼物！";
                         tip.style.color = "#d35400";
                     } else if (step === 2) {
-                        // 展示第二个礼物
+                        // 展示礼物2
                         gift2.style.display = 'flex';
+                        tip.innerHTML = "🔥 <b>天呐！</b> 盒子底下好像还压着一个重磅大礼...";
+                        tip.style.color = "#c0392b";
+                    } else if (step === 3) {
+                        // 展示礼物3
+                        gift3.style.display = 'flex';
                         // 隐藏盒子和提示
                         box.style.opacity = '0';
                         box.style.pointerEvents = 'none';
                         tip.innerHTML = "✨ 所有惊喜已全部解锁 ✨";
                         tip.style.color = "#27ae60";
                         tip.style.fontWeight = "bold";
+                        
+                        // 滚动到底部
+                        setTimeout(() => {
+                            gift3.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                        }, 100);
                     }
                 }, 500);
             });
