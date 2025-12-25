@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>To: 小余同学 ✨</title>
+    <style>
+        /* --- 1. 全局与背景 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            /* 经典渐变背景 */
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+            background-size: 400% 400%;
+            animation: bgGradient 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        @keyframes bgGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 雪花 --- */
+        .snowflake {
+            position: absolute; top: -10px; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.8);
+            animation: fall linear infinite; z-index: 1; pointer-events: none;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* --- 主卡片 --- */
+        .card {
+            position: relative;
+            width: 95%; max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px; padding: 30px 10px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            z-index: 10; margin-bottom: 50px; margin-top: 20px;
+            border: 4px solid #2e8b57;
+        }
+
+        /* --- 场景容器 --- */
+        .scene {
+            display: flex; justify-content: center; align-items: flex-end;
+            height: 380px; position: relative; margin-bottom: 20px;
+            transform: scale(0.95);
+        }
+
+        /* ====== 圣诞树 (Left) ====== */
+        .tree-wrapper {
+            position: relative; width: 220px; height: 360px;
+            margin-right: -45px; z-index: 5;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.3));
+        }
+
+        /* 树层 */
+        .layer {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-style: solid;
+        }
+        .l1 { bottom: 30px; border-width: 0 110px 110px 110px; border-color: transparent transparent #0f5132 transparent; z-index: 2; }
+        .l2 { bottom: 100px; border-width: 0 90px 100px 90px; border-color: transparent transparent #146c43 transparent; z-index: 3; }
+        .l3 { bottom: 170px; border-width: 0 70px 80px 70px; border-color: transparent transparent #198754 transparent; z-index: 4; }
+        .l4 { bottom: 220px; border-width: 0 50px 65px 50px; border-color: transparent transparent #20c997 transparent; z-index: 5; }
+        
+        .trunk {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 34px; height: 45px; background: #4e342e; z-index: 1;
+        }
+        .star {
+            position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
+            font-size: 45px; color: #ffd700; z-index: 10;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        /* 平安果 (余/馨/兰) */
+        .apple {
+            position: absolute; width: 26px; height: 26px;
+            background: radial-gradient(circle at 30% 30%, #ff5252, #b71c1c);
+            border-radius: 50%; color: #fff; font-size: 12px;
+            display: flex; justify-content: center; align-items: center; font-weight: bold;
+            z-index: 6; border: 0.5px solid rgba(0,0,0,0.1);
+            animation: swing 3s ease-in-out infinite alternate;
+        }
+        .apple::after { content: ''; position: absolute; top: -3px; left: 50%; width: 4px; height: 3px; background: #4caf50; border-radius: 50%; transform: translateX(-50%);}
+        @keyframes swing { 0%{transform:rotate(8deg)} 100%{transform:rotate(-8deg)} }
+
+        /* ====== 圣诞老人 (Right) ====== */
+        .santa-wrapper {
+            position: relative; width: 150px; height: 330px;
+            z-index: 6; margin-left: -15px;
+        }
+        .santa-body {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 130px; background: #d32f2f; border-radius: 50% 50% 10px 10px; z-index: 2;
+        }
+        .santa-body::before { content: ''; position: absolute; top: 75px; left: 0; width: 100%; height: 14px; background: #212121; }
+        .santa-body::after { content: ''; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 18px; height: 14px; border: 2px solid #ffd700; box-sizing: border-box; }
+        
+        .santa-head {
+            position: absolute; bottom: 150px; left: 50%; transform: translateX(-50%);
+            width: 65px; height: 65px; background: #ffccbc; border-radius: 50%; z-index: 3;
+        }
+        .santa-beard {
+            position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            width: 75px; height: 45px; background: #fff; border-radius: 0 0 40px 40px;
+        }
+        .santa-hat {
+            position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 32px solid transparent; border-right: 32px solid transparent; border-bottom: 45px solid #d32f2f;
+        }
+        .santa-hat::after { content: ''; position: absolute; top: -12px; left: -8px; width: 16px; height: 16px; background: #fff; border-radius: 50%; }
+        .eyes { position: absolute; top: 22px; width: 100%; text-align: center; color: #333; font-size: 14px; font-weight: bold; }
+
+        .arm-right {
+            position: absolute; top: 120px; left: -30px;
+            width: 65px; height: 22px; background: #d32f2f; border-radius: 20px;
+            transform: rotate(-18deg); z-index: 10;
+        }
+        .arm-right::before { content: ''; position: absolute; left: -8px; top: -4px; width: 22px; height: 30px; background: #212121; border-radius: 50%; }
+        
+        .arm-left {
+            position: absolute; top: 130px; right: 5px;
+            width: 22px; height: 60px; background: #d32f2f; border-radius: 20px;
+            transform: rotate(-10deg); z-index: 2;
+        }
+        .arm-left::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 22px; height: 18px; background: #212121; border-radius: 0 0 10px 10px; }
+
+        .leg { position: absolute; bottom: 0; width: 30px; height: 35px; background: #d32f2f; z-index: 1; }
+        .leg-l { left: 35px; } .leg-r { right: 35px; }
+        .boot { position: absolute; bottom: 0; width: 35px; height: 12px; background: #212121; border-radius: 10px 10px 0 0; }
+
+        /* --- 文本样式 --- */
+        .card-title { color: #2e8b57; font-size: 26px; margin: 10px 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+        .card-message { color: #333; font-size: 16px; margin-bottom: 15px; line-height: 1.7; padding: 0 10px; }
+        .highlight-name { color: #c0392b; font-weight: bold; font-size: 18px; background: rgba(255,215,0,0.15); padding: 0 5px; border-radius: 4px;}
+
+        /* --- 礼物互动区域 --- */
+        .gift-area { 
+            position: relative; 
+            min-height: 180px; 
+            margin-top: 15px;
+            padding-bottom: 20px;
+        }
+
+        .gift-box { 
+            font-size: 65px; margin: 5px auto; cursor: pointer; display: inline-block; 
+            transition: 0.3s; z-index: 20; position: relative;
+        }
+        .gift-box:active { transform: scale(0.9); }
+        .gift-box.shake { animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-15deg)} 75%{transform:rotate(15deg)} }
+        
+        .gift-tip { color:#7f8c8d; font-size:14px; margin-bottom: 15px; transition: all 0.3s; }
+
+        /* --- 礼物展示容器 --- */
+        .revealed-gift {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            margin-bottom: 25px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* 礼物1：大苹果 */
+        .big-apple-wrapper {
+            position: relative; width: 100px; height: 95px; margin: 5px auto;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        .big-apple {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 35% 30%, #ff5252, #c0392b);
+            border-radius: 50% 50% 40% 40% / 60% 60% 45% 45%;
+            position: relative;
+            display: flex; justify-content: center; align-items: center;
+            color: #ffd700; font-size: 30px;
+        }
+        .big-leaf {
+            position: absolute; top: -10px; left: 50%; width: 20px; height: 35px;
+            background: #4caf50; border-radius: 30px 0;
+            transform: translateX(-50%) rotate(-15deg);
+        }
+        
+        /* 礼物2：羽毛球拍 CSS Art */
+        .racket-wrapper {
+            position: relative; width: 100px; height: 130px; margin: 5px auto;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+            transform: rotate(-10deg);
+        }
+        /* 拍头 */
+        .racket-head {
+            width: 80px; height: 95px;
+            border: 4px solid #34495e;
+            border-radius: 50%;
+            position: absolute; left: 10px; top: 0;
+            background-image: 
+                linear-gradient(#ccc 1px, transparent 1px),
+                linear-gradient(90deg, #ccc 1px, transparent 1px);
+            background-size: 8px 8px; /* 网线 */
+            background-position: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        /* 拍杆 */
+        .racket-shaft {
+            width: 6px; height: 40px;
+            background: #95a5a6;
+            position: absolute; bottom: 0; left: 47px;
+        }
+        /* 三角区 */
+        .racket-throat {
+            width: 0; height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid #34495e;
+            position: absolute; top: 92px; left: 45px;
+        }
+        /* 手柄 */
+        .racket-handle {
+            width: 12px; height: 35px;
+            background: #2c3e50;
+            position: absolute; bottom: -20px; left: 44px;
+            border-radius: 2px;
+            background-image: repeating-linear-gradient(45deg, #2c3e50, #2c3e50 5px, #34495e 5px, #34495e 7px);
+        }
+
+        .surprise-text {
+            color: #333; font-weight: bold; font-size: 15px; margin-top: 10px; line-height: 1.5;
+        }
+        .highlight-gift { color: #e74c3c; font-size: 18px; display: block; margin: 4px 0; }
+
+        .btn-music {
+            margin-top: 10px; padding: 12px 35px;
+            background: linear-gradient(90deg, #16a085, #2ecc71);
+            color: #fff; border: none; border-radius: 50px; font-size: 16px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.4); transition: 0.3s;
+        }
+        .btn-music:active { transform: scale(0.95); }
+
+        .signature { margin-top: 20px; font-style: italic; color: #555; font-size: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 音乐 -->
+    <audio id="bgm" loop preload="auto">
+        <source src="https://music.163.com/song/media/outer/url?id=186037.mp3" type="audio/mpeg">
+        <source src="https://upload.wikimedia.org/wikipedia/commons/e/e6/We_Wish_You_a_Merry_Christmas.ogg" type="audio/ogg">
+    </audio>
+
+    <div class="card">
+        <h1 class="card-title">Merry Christmas! 🎄</h1>
+
+        <!-- 场景 -->
+        <div class="scene">
+            <!-- 树 -->
+            <div class="tree-wrapper">
+                <div class="star">⭐</div>
+                <div class="layer l4"></div>
+                <div class="layer l3"></div>
+                <div class="layer l2"></div>
+                <div class="layer l1"></div>
+                <div class="trunk"></div>
+
+                <!-- 20个苹果：余/馨/兰 -->
+                <div class="apple" style="top:95px; left:100px;">余</div>
+                <div class="apple" style="top:105px; left:120px;">馨</div>
+                <div class="apple" style="top:140px; left:90px;">兰</div>
+                <div class="apple" style="top:150px; left:130px;">余</div>
+                <div class="apple" style="top:155px; left:110px;">馨</div>
+                <div class="apple" style="top:165px; left:80px;">兰</div>
+                <div class="apple" style="top:200px; left:70px;">余</div>
+                <div class="apple" style="top:210px; left:100px;">馨</div>
+                <div class="apple" style="top:205px; left:140px;">兰</div>
+                <div class="apple" style="top:220px; left:120px;">余</div>
+                <div class="apple" style="top:215px; left:160px;">馨</div>
+                <div class="apple" style="top:230px; left:90px;">兰</div>
+                <div class="apple" style="top:260px; left:50px;">余</div>
+                <div class="apple" style="top:270px; left:80px;">馨</div>
+                <div class="apple" style="top:265px; left:110px;">兰</div>
+                <div class="apple" style="top:280px; left:130px;">余</div>
+                <div class="apple" style="top:275px; left:150px;">馨</div>
+                <div class="apple" style="top:290px; left:100px;">兰</div>
+                <div class="apple" style="top:285px; left:170px;">余</div>
+                <div class="apple" style="top:300px; left:60px;">馨</div>
+                <div class="apple" style="top:310px; left:140px;">兰</div>
+                <div class="apple" style="top:315px; left:90px;">余</div>
+            </div>
+
+            <!-- 圣诞老人 -->
+            <div class="santa-wrapper">
+                <div class="santa-head">
+                    <div class="eyes">^^</div>
+                    <div class="santa-beard"></div>
+                    <div class="santa-hat"></div>
+                </div>
+                <div class="santa-body">
+                    <div class="arm-right"></div>
+                    <div class="arm-left"></div>
+                </div>
+                <div class="leg leg-l"><div class="boot"></div></div>
+                <div class="leg leg-r"><div class="boot"></div></div>
+            </div>
+        </div>
+
+        <p class="card-message">
+            To: <span class="highlight-name">小余同学</span><br>
+            这首 We Wish You a Merry Christmas<br>
+            是专门为你点播的 🎵<br>
+            希望这些平安果能够保佑你以后平平安安，<br>
+            上下学骑车都安安全全的，<br>
+            不要再发生意外啦！！✨
+        </p>
+
+        <!-- 礼物区 -->
+        <div class="gift-area">
+            <!-- 礼物盒 (触发器) -->
+            <div class="gift-box" id="giftBox">🎁</div>
+            <div class="gift-tip" id="giftTip">👇 点击盒子，抽取第一个神秘礼物</div>
+            
+            <!-- 礼物 1：大苹果 -->
+            <div class="revealed-gift" id="gift1">
+                <div class="big-apple-wrapper">
+                    <div class="big-apple">🍎</div>
+                    <div class="big-leaf"></div>
+                </div>
+                <div class="surprise-text">
+                    你抽到了一个全世界<br>
+                    <span class="highlight-gift">超级无敌大的平安果</span>
+                    恭喜你！！🎉
+                </div>
+            </div>
+
+            <!-- 礼物 2：羽毛球拍 -->
+            <div class="revealed-gift" id="gift2">
+                <div class="racket-wrapper">
+                    <div class="racket-head"></div>
+                    <div class="racket-throat"></div>
+                    <div class="racket-shaft"></div>
+                    <div class="racket-handle"></div>
+                </div>
+                <div class="surprise-text">
+                    哇！还抽到了一个<br>
+                    <span class="highlight-gift">崭新的羽毛球拍 🏸</span>
+                    希望这只球拍能给你这个羽球人<br>
+                    增加强大的实力！💪
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-music" id="musicBtn">🎵 点击播放：We Wish You a Merry Christmas</button>
+        <p class="signature">—— 小张同学</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            /* 1. 雪花 */
+            function createSnow() {
+                const count = 50; 
+                for(let i=0; i<count; i++) {
+                    const snow = document.createElement('div');
+                    snow.className = 'snowflake';
+                    snow.textContent = ['❄','❅','❆'][Math.floor(Math.random()*3)];
+                    snow.style.left = Math.random() * 100 + '%';
+                    snow.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                    snow.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                    snow.style.animationDelay = (Math.random() * 5) + 's';
+                    snow.style.opacity = Math.random() * 0.7 + 0.3;
+                    document.body.appendChild(snow);
+                }
+            }
+            createSnow();
+
+            /* 2. 音乐 */
+            const musicBtn = document.getElementById('musicBtn');
+            const bgm = document.getElementById('bgm');
+            let isPlaying = false;
+
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    bgm.pause();
+                    musicBtn.textContent = '🎵 点击播放：We Wish You a Merry Christmas';
+                    musicBtn.style.background = 'linear-gradient(90deg, #16a085, #2ecc71)';
+                    isPlaying = false;
+                } else {
+                    bgm.play().then(() => {
+                        musicBtn.textContent = '⏸ 正在播放圣诞颂歌...';
+                        musicBtn.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
+                        isPlaying = true;
+                    }).catch(err => { alert("请检查手机静音或再次点击~"); });
+                }
+            });
+
+            document.body.addEventListener('touchstart', function() {
+                if(!isPlaying) bgm.load();
+            }, {once:true});
+
+            /* 3. 抽奖逻辑 (双重神秘) */
+            const box = document.getElementById('giftBox');
+            const tip = document.getElementById('giftTip');
+            const gift1 = document.getElementById('gift1');
+            const gift2 = document.getElementById('gift2');
+            
+            let step = 0; // 0:未开始, 1:开了第一个, 2:开了第二个
+
+            box.addEventListener('click', function() {
+                if(step >= 2) return;
+
+                // 摇晃盒子动画
+                box.classList.remove('shake');
+                void box.offsetWidth; 
+                box.classList.add('shake');
+
+                // 延迟展示
+                setTimeout(() => {
+                    step++;
+
+                    if (step === 1) {
+                        // 展示第一个礼物
+                        gift1.style.display = 'flex';
+                        tip.innerHTML = "🎁 <b>盒子还在动！</b> 点击抽取第二个神秘大礼";
+                        tip.style.color = "#d35400";
+                    } else if (step === 2) {
+                        // 展示第二个礼物
+                        gift2.style.display = 'flex';
+                        // 隐藏盒子和提示
+                        box.style.opacity = '0';
+                        box.style.pointerEvents = 'none';
+                        tip.innerHTML = "✨ 所有惊喜已全部解锁 ✨";
+                        tip.style.color = "#27ae60";
+                        tip.style.fontWeight = "bold";
+                    }
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
