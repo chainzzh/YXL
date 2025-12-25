@@ -81,16 +81,16 @@
             animation: twinkle 1.5s infinite alternate;
         }
 
-        /* 平安果 (余/馨/兰) - 大尺寸 */
+        /* 平安果 (余/馨/兰) */
         .apple {
-            position: absolute; width: 28px; height: 28px;
+            position: absolute; width: 26px; height: 26px;
             background: radial-gradient(circle at 30% 30%, #ff5252, #b71c1c);
-            border-radius: 50%; color: #fff; font-size: 13px;
+            border-radius: 50%; color: #fff; font-size: 12px;
             display: flex; justify-content: center; align-items: center; font-weight: bold;
             z-index: 6; border: 0.5px solid rgba(0,0,0,0.1);
             animation: swing 3s ease-in-out infinite alternate;
         }
-        .apple::after { content: ''; position: absolute; top: -3px; left: 50%; width: 4px; height: 4px; background: #4caf50; border-radius: 50%; transform: translateX(-50%);}
+        .apple::after { content: ''; position: absolute; top: -3px; left: 50%; width: 4px; height: 3px; background: #4caf50; border-radius: 50%; transform: translateX(-50%);}
         @keyframes swing { 0%{transform:rotate(8deg)} 100%{transform:rotate(-8deg)} }
 
         /* ====== 圣诞老人 (Right) ====== */
@@ -259,24 +259,11 @@
         }
         .highlight-gift { color: #e74c3c; font-size: 18px; display: block; margin: 4px 0; }
 
-        .btn-music {
-            margin-top: 10px; padding: 12px 35px;
-            background: linear-gradient(90deg, #16a085, #2ecc71);
-            color: #fff; border: none; border-radius: 50px; font-size: 16px; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(22, 160, 133, 0.4); transition: 0.3s;
-        }
-        .btn-music:active { transform: scale(0.95); }
-
         .signature { margin-top: 20px; font-style: italic; color: #555; font-size: 15px; }
 
     </style>
 </head>
 <body>
-
-    <!-- 音乐：使用极度稳定的 MP3 外链 (Kevin MacLeod - Jingle Bells 欢快版) -->
-    <audio id="bgm" loop preload="auto">
-        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kevin_MacLeod/Jingle_Bells/Kevin_MacLeod_-_Jingle_Bells.mp3" type="audio/mpeg">
-    </audio>
 
     <div class="card">
         <h1 class="card-title">Merry Christmas! 🎄</h1>
@@ -335,8 +322,8 @@
 
         <p class="card-message">
             To: <span class="highlight-name">小余同学</span><br>
-            这首欢快的节日音乐<br>
-            是专门为你点播的 🎵<br>
+            圣诞的钟声敲响，雪花悄悄飘落 ❄️<br>
+            愿美好的事物都在向你奔赴。<br>
             希望这些平安果能够保佑你以后平平安安，<br>
             上下学骑车都安安全全的，<br>
             不要再发生意外啦！！✨
@@ -395,7 +382,6 @@
             </div>
         </div>
 
-        <button class="btn-music" id="musicBtn">🎵 点击开启圣诞喜庆 BGM</button>
         <p class="signature">—— 小张同学</p>
     </div>
 
@@ -418,40 +404,7 @@
             }
             createSnow();
 
-            /* 2. 音乐 (核心：使用稳定外链) */
-            const musicBtn = document.getElementById('musicBtn');
-            const bgm = document.getElementById('bgm');
-            let isPlaying = false;
-
-            musicBtn.addEventListener('click', function() {
-                if (isPlaying) {
-                    bgm.pause();
-                    musicBtn.textContent = '🎵 点击开启圣诞喜庆 BGM';
-                    musicBtn.style.background = 'linear-gradient(90deg, #16a085, #2ecc71)';
-                    isPlaying = false;
-                } else {
-                    const playPromise = bgm.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(_ => {
-                            musicBtn.textContent = '⏸ 正在播放喜庆 BGM...';
-                            musicBtn.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
-                            isPlaying = true;
-                        })
-                        .catch(error => {
-                            console.error("Play error:", error);
-                            alert("为了听到音乐，请检查手机是否开启了静音模式，并再次点击按钮~");
-                        });
-                    }
-                }
-            });
-
-            // 触摸页面预加载音频
-            document.body.addEventListener('touchstart', function() {
-                if(!isPlaying) bgm.load();
-            }, {once:true});
-
-            /* 3. 抽奖逻辑 (三连抽) */
+            /* 2. 抽奖逻辑 (三连抽) */
             const box = document.getElementById('giftBox');
             const tip = document.getElementById('giftTip');
             const gift1 = document.getElementById('gift1');
